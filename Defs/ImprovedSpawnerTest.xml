@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <ThingDef ParentName="BuildingBase">
+        <defName>ImprovedSpawnerTest</defName>
+        <label>berry spawner</label>
+        <description>Consumes wood to produce berries. Magic!</description>
+        <graphicData>
+            <texPath>Things/Building/Misc/PassiveCooler</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawRotated>false</drawRotated>
+            <allowFlip>false</allowFlip>
+            <shadowData>
+                <volume>(0.9,0.3,0.9)</volume>
+            </shadowData>
+            <damageData>
+                <rect>(0.2,0,0.6,0.1)</rect>
+            </damageData>
+        </graphicData>
+        <rotatable>false</rotatable>
+        <altitudeLayer>Building</altitudeLayer>
+        <passability>PassThroughOnly</passability>
+        <pathCost>30</pathCost>
+        <constructEffect>ConstructDirt</constructEffect>
+        <tickerType>Normal</tickerType>
+        <drawerType>RealtimeOnly</drawerType>
+        <fillPercent>0.40</fillPercent>
+        <statBases>
+            <MaxHitPoints>80</MaxHitPoints>
+            <WorkToBuild>200</WorkToBuild>
+            <Flammability>1</Flammability>
+        </statBases>
+        <selectable>true</selectable>
+        <costList>
+            <WoodLog>50</WoodLog>
+        </costList>
+        <building>
+            <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+        </building>
+        <soundImpactDefault>BulletImpact_Ground</soundImpactDefault>
+        <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+        <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+        <placeWorkers>
+            <li>PlaceWorker_CoolerSimple</li>
+        </placeWorkers>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <comps>
+            <li Class="NewAndImprovedXmlComps.CompProperties_ImprovedSpawner">
+                <thingToSpawn>RawBerries</thingToSpawn>
+                <spawnCount>2</spawnCount>
+                <spawnIntervalRange>2500</spawnIntervalRange>
+                <writeTimeLeftToSpawn>true</writeTimeLeftToSpawn>
+                <showMessageIfOwned>true</showMessageIfOwned>
+                <requiresFuel>true</requiresFuel>
+            </li>
+            <li Class="CompProperties_Refuelable">
+                <fuelConsumptionRate>100.0</fuelConsumptionRate>
+                <fuelCapacity>50.0</fuelCapacity>
+                <fuelFilter>
+                    <thingDefs>
+                        <li>WoodLog</li>
+                    </thingDefs>
+                </fuelFilter>
+                <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+            </li>
+        </comps>
+    </ThingDef>
+</Defs>

@@ -1,0 +1,13 @@
+# top-most EditorConfig file
+root = true
+
+# 4 space indentation
+[*.{cs,xml}]
+indent_style = space
+indent_size = 4
+
+[*.cs]
+csharp_style_namespace_declarations = file_scoped:warning
+
+# IDE0032: Use auto property
+dotnet_style_prefer_auto_properties = true

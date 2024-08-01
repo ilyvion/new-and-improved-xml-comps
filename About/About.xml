@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ModMetaData>
+    <packageId>ilyvion.newandimprovedxmlcomps</packageId>
+    <url>https://github.com/ilyvion/new-and-improved-xml-comps</url>
+    <name>New and Improved XML comps</name>
+    <author>ilyvion</author>
+    <description>This is a mod that will mostly be a collection of new comps (as well as improvements to vanilla comps) that will let people do things with XML only that would normally require C# coding. If you're an aspiring mod author in need of a feature that vanilla comps do not offer, drop me a suggestion and I'll let you know whether or not I can add it to the mod for you!</description>
+    <supportedVersions>
+        <li>1.5</li>
+    </supportedVersions>
+    <modVersion>0.1.0</modVersion>
+    <modDependencies>
+        <li>
+            <packageId>brrainz.harmony</packageId>
+            <displayName>Harmony</displayName>
+            <downloadUrl>https://steamcommunity.com/workshop/filedetails/?id=2009463077</downloadUrl>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+        </li>
+        <li>
+            <packageId>ilyvion.Laboratory</packageId>
+            <displayName>ilyvion's Laboratory</displayName>
+            <downloadUrl>https://github.com/ilyvion/ilyvion-laboratory/releases/latest</downloadUrl>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/3296362231</steamWorkshopUrl>
+        </li>
+    </modDependencies>
+    <loadAfter>
+        <li>brrainz.harmony</li>
+        <li>ilyvion.Laboratory</li>
+    </loadAfter>
+</ModMetaData>
