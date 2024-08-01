@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] 2024-08-01
+
 ### Added
 
 -   CompProperties_ImprovedPower that can be used in place of CompProperties_Power that lets you hide the power wire that the game normally renders.
@@ -23,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   First implementation of the mod.
 
-[Unreleased]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/ilyvion/new-and-improved-xml-comps/releases/tag/v0.1.0
