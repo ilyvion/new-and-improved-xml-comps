@@ -24,9 +24,13 @@ public partial class CompImprovedSpawner : CompSpawner
 
     protected virtual bool IsActive()
     {
-        return (!PropsSpawner.requiresPower && !PropsSpawner.requiresFuel)
-            || (PropsSpawner.requiresPower && PowerOn)
-            || (PropsSpawner.requiresFuel && HasFuel);
+        bool requiresPower = PropsSpawner.requiresPower;
+        bool requiresFuel = PropsSpawner.requiresFuel;
+
+        return (!requiresPower && !requiresFuel)
+            || (requiresPower && requiresFuel && PowerOn && HasFuel)
+            || (requiresPower && !requiresFuel && PowerOn)
+            || (!requiresPower && requiresFuel && HasFuel);
     }
 
     public override string CompInspectStringExtra()
