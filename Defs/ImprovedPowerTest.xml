@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ThingDef ParentName="LampBase">
+        <defName>ImprovedPowerTestHideNormally</defName>
+        <label>standing lamp without cable</label>
+        <description>An electrical standing lamp that does not have a cable.</description>
+        <minifiedDef />
+        <graphicData>
+            <texPath>Things/Building/Furniture/LampStanding</texPath>
+            <shadowData>
+                <volume>(0.3, 0.6, 0.3)</volume>
+                <offset>(0,0,-0.1)</offset>
+            </shadowData>
+        </graphicData>
+        <costList>
+            <Steel>20</Steel>
+        </costList>
+        <statBases>
+            <Mass>4</Mass>
+            <StyleDominance MayRequire="Ludeon.RimWorld.Ideology">5</StyleDominance>
+        </statBases>
+        <uiOrder>2990</uiOrder>
+        <comps>
+            <li Class="NewAndImprovedXmlComps.CompProperties_ImprovedPower">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>30</basePowerConsumption>
+                <powerUpgrades>
+                    <li>
+                        <researchProject>ColoredLights</researchProject>
+                        <factor>0.5</factor>
+                    </li>
+                </powerUpgrades>
+                <hideWireMode>Normally</hideWireMode>
+            </li>
+            <li Class="CompProperties_Styleable" />
+            <li Class="CompProperties_Glower">
+                <glowRadius>12</glowRadius>
+                <glowColor>(214,148,94,0)</glowColor>
+                <colorPickerEnabled>true</colorPickerEnabled>
+                <darklightToggle>true</darklightToggle>
+            </li>
+        </comps>
+        <thingCategories Inherit="False" />
+        <designationCategory />
+    </ThingDef>
+
+    <ThingDef ParentName="LampBase">
+        <defName>ImprovedPowerTestHideAlways</defName>
+        <label>standing lamp without cable (even when showing power net)</label>
+        <description>An electrical standing lamp that does not have a cable.</description>
+        <minifiedDef />
+        <graphicData>
+            <texPath>Things/Building/Furniture/LampStanding</texPath>
+            <shadowData>
+                <volume>(0.3, 0.6, 0.3)</volume>
+                <offset>(0,0,-0.1)</offset>
+            </shadowData>
+        </graphicData>
+        <costList>
+            <Steel>20</Steel>
+        </costList>
+        <statBases>
+            <Mass>4</Mass>
+            <StyleDominance MayRequire="Ludeon.RimWorld.Ideology">5</StyleDominance>
+        </statBases>
+        <uiOrder>2990</uiOrder>
+        <comps>
+            <li Class="NewAndImprovedXmlComps.CompProperties_ImprovedPower">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>30</basePowerConsumption>
+                <powerUpgrades>
+                    <li>
+                        <researchProject>ColoredLights</researchProject>
+                        <factor>0.5</factor>
+                    </li>
+                </powerUpgrades>
+                <hideWireMode>Always</hideWireMode>
+            </li>
+            <li Class="CompProperties_Styleable" />
+            <li Class="CompProperties_Glower">
+                <glowRadius>12</glowRadius>
+                <glowColor>(214,148,94,0)</glowColor>
+                <colorPickerEnabled>true</colorPickerEnabled>
+                <darklightToggle>true</darklightToggle>
+            </li>
+        </comps>
+        <thingCategories Inherit="False" />
+        <designationCategory />
+    </ThingDef>
+</Defs>

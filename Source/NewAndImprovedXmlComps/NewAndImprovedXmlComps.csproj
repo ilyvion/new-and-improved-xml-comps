@@ -17,7 +17,7 @@
             CA1707: Identifiers should not contain underscores
                 RimWorld's naming convention uses underscores.
         -->
-        <NoWarn>CA1707</NoWarn>
+        <NoWarn>CA1707;CA1859</NoWarn>
 
         <RootNamespace>NewAndImprovedXmlComps</RootNamespace>
         <AssemblyName>NewAndImprovedXmlComps</AssemblyName>

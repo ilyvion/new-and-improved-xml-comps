@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   CompProperties_ImprovedPower that can be used in place of CompProperties_Power that lets you hide the power wire that the game normally renders.
+
 ## [0.1.1] 2024-08-01
 
 ### Fixed
