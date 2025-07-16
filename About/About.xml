@@ -7,6 +7,7 @@
     <description>This is a mod that will mostly be a collection of new comps (as well as improvements to vanilla comps) that will let people do things with XML only that would normally require C# coding. If you're an aspiring mod author in need of a feature that vanilla comps do not offer, drop me a suggestion and I'll let you know whether or not I can add it to the mod for you!</description>
     <supportedVersions>
         <li>1.5</li>
+        <li>1.6</li>
     </supportedVersions>
     <modVersion>0.2.0</modVersion>
     <modDependencies>

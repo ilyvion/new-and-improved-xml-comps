@@ -9,17 +9,21 @@ public partial class CompImprovedSpawner : CompSpawner
 
     public override void CompTick()
     {
-        TickInterval(1);
+        TickIntervalDelta(1);
     }
 
     public override void CompTickRare()
     {
-        TickInterval(250);
+        TickIntervalDelta(250);
     }
 
-    private void TickInterval(int interval)
+#if v1_5
+    private void TickIntervalDelta(int interval)
+#else
+    private new void TickIntervalDelta(int interval)
+#endif
     {
-        ReverseTickInterval(this, interval);
+        ReverseTickIntervalDelta(this, interval);
     }
 
     protected virtual bool IsActive()

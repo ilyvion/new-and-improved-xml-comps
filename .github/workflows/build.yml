@@ -33,6 +33,11 @@ jobs:
                   RimWorldVersion: 1.5
               run: dotnet build --configuration Release NewAndImprovedXmlComps.sln
 
+            - name: Build Mod for 1.6
+              env:
+                  RimWorldVersion: 1.6
+              run: dotnet build --configuration Release NewAndImprovedXmlComps.sln
+
             - name: Upload Mod Artifacts
               uses: actions/upload-artifact@v4
               with:
@@ -40,7 +45,8 @@ jobs:
                   path: |
                       About/
                       1.5/
-                      Defs/
+                      1.6/
+                      Common/
                       LICENSE
                       README.md
                       CHANGELOG.md

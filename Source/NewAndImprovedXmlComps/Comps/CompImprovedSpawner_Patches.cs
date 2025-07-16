@@ -11,8 +11,12 @@ public partial class CompImprovedSpawner
     private static readonly MethodInfo CompImprovedSpawner_IsActive = AccessTools.Method(typeof(CompImprovedSpawner), nameof(IsActive));
 
     [HarmonyReversePatch]
-    [HarmonyPatch("TickInterval")]
-    private static void ReverseTickInterval(CompImprovedSpawner @this, int interval)
+#if v1_5
+    [HarmonyPatch(nameof(CompSpawner.TickInterval))]
+#else
+    [HarmonyPatch(nameof(CompSpawner.TickIntervalDelta))]
+#endif
+    private static void ReverseTickIntervalDelta(CompImprovedSpawner @this, int interval)
     {
         IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
@@ -52,7 +56,7 @@ public partial class CompImprovedSpawner
     private static readonly FieldInfo CompProperties_Spawner_requiresPower = AccessTools.Field(typeof(CompProperties_Spawner), nameof(CompProperties_Spawner.requiresPower));
 
     [HarmonyReversePatch]
-    [HarmonyPatch("CompInspectStringExtra")]
+    [HarmonyPatch(nameof(CompSpawner.CompInspectStringExtra))]
     private static string ReverseCompInspectStringExtra(CompImprovedSpawner @this)
     {
         IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

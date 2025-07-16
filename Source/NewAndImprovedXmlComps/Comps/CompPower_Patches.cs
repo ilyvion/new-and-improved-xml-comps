@@ -51,11 +51,30 @@ public partial class CompImprovedPower_CompPrintForPowerGrid
 
         var codeMatcher = new CodeMatcher(instructions, generator);
 
-        codeMatcher.SearchForward(i => i.opcode == OpCodes.Ldsfld && i.operand is FieldInfo f && f == ThingDefOf_HiddenConduit);
-        if (!codeMatcher.IsValid)
+        var is15 =
+#if v1_5
+            true;
+#else
+            false;
+#endif
+        if (is15 || methodName == nameof(CompPower.PostPrintOnto))
         {
-            Log.Error($"Could not patch {methodName}, IL does not match expectations: access to ThingDefOf.HiddenConduit not found.");
-            return codeMatcher.Instructions();
+            codeMatcher.SearchForward(i => i.opcode == OpCodes.Ldsfld && i.operand is FieldInfo f && f == ThingDefOf_HiddenConduit);
+            if (!codeMatcher.IsValid)
+            {
+                Log.Error($"Could not patch {methodName}, IL does not match expectations: access to ThingDefOf.HiddenConduit not found.");
+                return codeMatcher.Instructions();
+            }
+        }
+        else // v1_6 && (methodName == nameof(CompPower.CompPrintForPowerGrid))
+        {
+            codeMatcher.End();
+            codeMatcher.SearchBackwards(i => i.opcode == OpCodes.Ldfld && i.operand is FieldInfo f && f == CompPower_connectParent);
+            if (!codeMatcher.IsValid)
+            {
+                Log.Error($"Could not patch {methodName}, IL does not match expectations: access to CompPower.connectParent not found.");
+                return codeMatcher.Instructions();
+            }
         }
 
         codeMatcher.SearchBackwards(i => i.opcode == OpCodes.Ldarg_0);
