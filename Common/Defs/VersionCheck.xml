@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ilyvion.Laboratory.VersionCheckDef>
+        <defName>NIXC_VersionCheck</defName>
+        <modName>New and Improved XML Comps</modName>
+        <majorVersion>0</majorVersion>
+        <minorVersion>16</minorVersion>
+    </ilyvion.Laboratory.VersionCheckDef>
+</Defs>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <!-- I don't want this mod to actually inject this comp, but this is how you would do it: -->
+    <!-- <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="GrowthVat"]/comps</xpath>
+        <value>
+            <li Class="NewAndImprovedXmlComps.CompProperties_EmbryoGestation" />
+        </value>
+    </Operation> -->
+</Patch>

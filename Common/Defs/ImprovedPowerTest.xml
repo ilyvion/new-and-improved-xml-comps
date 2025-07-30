@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
     <ThingDef ParentName="LampBase">
-        <defName>ImprovedPowerTestHideNormally</defName>
+        <defName>NIXC_ImprovedPowerTestHideNormally</defName>
         <label>standing lamp without cable</label>
         <description>An electrical standing lamp that does not have a cable.</description>
         <minifiedDef />
@@ -45,7 +45,7 @@
     </ThingDef>
 
     <ThingDef ParentName="LampBase">
-        <defName>ImprovedPowerTestHideAlways</defName>
+        <defName>NIXC_ImprovedPowerTestHideAlways</defName>
         <label>standing lamp without cable (even when showing power net)</label>
         <description>An electrical standing lamp that does not have a cable.</description>
         <minifiedDef />

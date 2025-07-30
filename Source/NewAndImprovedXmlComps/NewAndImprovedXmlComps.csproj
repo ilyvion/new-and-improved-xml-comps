@@ -17,7 +17,7 @@
             CA1707: Identifiers should not contain underscores
                 RimWorld's naming convention uses underscores.
         -->
-        <NoWarn>CA1707;CA1859</NoWarn>
+        <NoWarn>CA1707;CA1859;IDE0008</NoWarn>
 
         <RootNamespace>NewAndImprovedXmlComps</RootNamespace>
         <AssemblyName>NewAndImprovedXmlComps</AssemblyName>
@@ -85,5 +85,8 @@
         <Publicize Include="Assembly-CSharp:RimWorld.CompSpawner.TickInterval" />
         <Publicize Include="Assembly-CSharp:RimWorld.CompSpawner.TickIntervalDelta" />
         <Publicize Include="Assembly-CSharp:RimWorld.CompSpawner.CompInspectStringExtra" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.DrawAt" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.TryGrowEmbryo" />
+        <Publicize Include="Assembly-CSharp:RimWorld.HumanEmbryo.BestAvailableGrowthVat" />
     </ItemGroup>
 </Project>

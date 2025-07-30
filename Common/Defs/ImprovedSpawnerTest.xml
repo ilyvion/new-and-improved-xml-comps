@@ -2,7 +2,7 @@
 <Defs>
 
     <ThingDef ParentName="BuildingBase">
-        <defName>ImprovedSpawnerTest</defName>
+        <defName>NIXC_ImprovedSpawnerTest</defName>
         <label>berry spawner</label>
         <description>Consumes wood to produce berries. Magic!</description>
         <graphicData>

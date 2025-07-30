@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   CompProperties_EmbryoGestation that can be added to the Growth Vat building, with a field embryoGestationTicks that overrides the number of ticks it takes for an embryo to gestate. The default is 9 days (540,000 ticks).
+
 ## [0.3.0] 2025-07-16
 
 ### Added
