@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2025-08-01
+
 ### Added
 
 -   CompProperties_EmbryoGestation that can be added to the Growth Vat building, with a field embryoGestationTicks that overrides the number of ticks it takes for an embryo to gestate. The default is 9 days (540,000 ticks).
@@ -35,7 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   First implementation of the mod.
 
-[Unreleased]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.3.0..v0.4.0
 [0.3.0]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.1.0...v0.1.1
