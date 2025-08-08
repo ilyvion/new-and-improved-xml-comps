@@ -88,5 +88,8 @@
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.DrawAt" />
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.TryGrowEmbryo" />
         <Publicize Include="Assembly-CSharp:RimWorld.HumanEmbryo.BestAvailableGrowthVat" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_GravEngine.DrawAt" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_GravEngine.onCooldownGraphic" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_GravEngine.OnCooldownGraphic" />
     </ItemGroup>
 </Project>

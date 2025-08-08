@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ThingDef ParentName="GravshipComponentBase">
+        <defName>NIXC_CustomGravEngine</defName>
+        <label>grav engine</label>
+        <description>The ultratech heart of a gravship. The grav engine generates lift by inverting and intensifying the effect of gravity in a field around itself. This engine can lift upwards, but does not produce forward thrust. It can't function far from a large gravity well like a planet, so it is useless for interplanetary travel.\n\nWhen launched, anything on substructure that's connected to the grav engine will be transported to a new map. Without a grav anchor, launching a gravship will abandon your current map.\n\nGlitterworld engineers use gravships to launch orbital platforms and build skyrippers. They require massive and hyper-specialized facilities to produce, making them a rare sight outside of glitterworlds.</description>
+        <thingClass>Building_GravEngine</thingClass>
+        <drawerType>RealtimeOnly</drawerType>
+        <tickerType>Normal</tickerType>
+        <minifiedDef>MinifiedGravEngine</minifiedDef>
+        <graphicData>
+            <graphicClass>Graphic_Single</graphicClass>
+            <texPath>Things/Building/GravEngine/GravEngine</texPath>
+            <drawSize>(3,3)</drawSize>
+        </graphicData>
+        <statBases>
+            <MaxHitPoints>800</MaxHitPoints>
+            <Mass>30</Mass>
+            <GravshipRange>0</GravshipRange>
+            <SubstructureSupport>500</SubstructureSupport>
+            <MarketValue>2000</MarketValue>
+        </statBases>
+        <size>(3,3)</size>
+        <castEdgeShadows>true</castEdgeShadows>
+        <fillPercent>0.6</fillPercent>
+        <passability>PassThroughOnly</passability>
+        <pathCost>20</pathCost>
+        <canOverlapZones>false</canOverlapZones>
+        <building>
+            <ai_neverTrashThis>true</ai_neverTrashThis>
+            <deconstructible>false</deconstructible>
+            <relatedBuildCommands>
+                <li>GravshipHull</li>
+            </relatedBuildCommands>
+            <relatedTerrain>
+                <li>Substructure</li>
+            </relatedTerrain>
+        </building>
+        <comps>
+            <li Class="CompProperties_SubstructureFootprint">
+                <radius>18.9</radius>
+            </li>
+            <li Class="CompProperties_Glower">
+                <glowRadius>8</glowRadius>
+                <glowColor>(0,218,255,0)</glowColor>
+            </li>
+            <li Class="CompProperties_AffectedByFacilities">
+                <linkableFacilities>
+                    <li>GravFieldExtender</li>
+                    <li>PilotConsole</li>
+                    <li>ChemfuelTank</li>
+                    <li>LargeChemfuelTank</li>
+                    <li>SmallThruster</li>
+                    <li>LargeThruster</li>
+                    <li>FuelOptimizer</li>
+                    <li>SignalJammer</li>
+                    <li>PilotSubpersonaCore</li>
+                    <li>GravshipShieldGenerator</li>
+                </linkableFacilities>
+            </li>
+            <li Class="CompProperties_AmbientSound">
+                <sound>GravshipEngine_Ambient</sound>
+            </li>
+        </comps>
+        <modExtensions>
+            <li Class="NewAndImprovedXmlComps.GravshipOrbExtension">
+                <orbGraphic>
+                    <graphicClass>Graphic_Single</graphicClass>
+                    <texPath>NIXC_RedOrb_Orbed</texPath>
+                    <drawSize>(1,1)</drawSize>
+                </orbGraphic>
+            </li>
+            <li Class="NewAndImprovedXmlComps.GravshipCooldownExtension">
+                <cooldownGraphic>
+                    <graphicClass>Graphic_Single</graphicClass>
+                    <texPath>NIXC_GravEngine_Cooldown</texPath>
+                    <drawSize>(3,3)</drawSize>
+                </cooldownGraphic>
+            </li>
+        </modExtensions>
+    </ThingDef>
+</Defs>

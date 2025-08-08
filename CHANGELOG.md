@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   GravshipCooldownExtension and GravshipOrbExtension modExtensions that can be used on a ThingDef with a Building_GravEngine to customize the orb and cooldown graphics, which are hardcoded in vanilla RimWorld. 
+
 ## [0.4.0] - 2025-08-01
 
 ### Added
