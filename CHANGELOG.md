@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2025-08-09
+
 ### Added
 
 - Added StatDef NewAndImprovedXmlComps_PowerGenFactor, which when applied to a building with a CompPowerTrader, can be used to adjust the building's power output. An example usage is adding a facility that adds a statOffset for the NewAndImprovedXmlComps_PowerGenFactor stat.
@@ -47,7 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First implementation of the mod.
 
-[Unreleased]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.5.0..v0.6.0
 [0.5.0]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.4.0..v0.5.0
 [0.4.0]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.3.0..v0.4.0
 [0.3.0]: https://github.com/ilyvion/new-and-improved-xml-comps/compare/v0.2.0...v0.3.0
