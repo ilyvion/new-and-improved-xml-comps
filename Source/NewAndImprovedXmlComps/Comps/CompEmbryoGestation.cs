@@ -1,16 +1,13 @@
 namespace NewAndImprovedXmlComps;
 
+/// <summary>
+/// Component for handling embryo gestation logic.
+/// </summary>
 public partial class CompEmbryoGestation : ThingComp
 {
-    public CompProperties_EmbryoGestation PropsEmbryoGestation => (CompProperties_EmbryoGestation)props;
-}
-
-public class CompProperties_EmbryoGestation : CompProperties
-{
-    public int embryoGestationTicks = Building_GrowthVat.EmbryoGestationTicks;
-
-    public CompProperties_EmbryoGestation()
-    {
-        compClass = typeof(CompEmbryoGestation);
-    }
+    /// <summary>
+    /// Gets the embryo gestation properties for this component.
+    /// </summary>
+    public CompProperties_EmbryoGestation PropsEmbryoGestation =>
+        (CompProperties_EmbryoGestation)props;
 }

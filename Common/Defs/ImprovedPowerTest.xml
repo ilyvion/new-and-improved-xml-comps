@@ -43,7 +43,6 @@
         <thingCategories Inherit="False" />
         <designationCategory />
     </ThingDef>
-
     <ThingDef ParentName="LampBase">
         <defName>NIXC_ImprovedPowerTestHideAlways</defName>
         <label>standing lamp without cable (even when showing power net)</label>

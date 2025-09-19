@@ -1,7 +1,7 @@
 #if !v1_5
 namespace NewAndImprovedXmlComps;
 
-internal class GravshipCooldownExtension : DefModExtension
+internal sealed class GravshipCooldownExtension : DefModExtension
 {
 #pragma warning disable CS0649 // Set by RimWorld, ensured by ConfigErrors
     public GraphicData? cooldownGraphic;
@@ -24,9 +24,9 @@ internal class GravshipCooldownExtension : DefModExtension
 
 [HarmonyPatch(typeof(Building_GravEngine))]
 [HarmonyPatch(nameof(Building_GravEngine.Graphic), MethodType.Getter)]
-internal class Building_GravEngine_Graphic_Patch
+internal sealed class Building_GravEngine_Graphic_Patch
 {
-    private static void Postfix(Building_GravEngine __instance, ref Graphic __result)
+    internal static void Postfix(Building_GravEngine __instance, ref Graphic __result)
     {
         var extension = __instance.def.GetModExtension<GravshipCooldownExtension>();
         if (extension == null || extension.cooldownGraphic == null)
