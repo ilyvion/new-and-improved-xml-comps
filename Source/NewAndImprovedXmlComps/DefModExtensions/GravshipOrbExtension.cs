@@ -11,6 +11,8 @@ internal class GravshipOrbExtension : DefModExtension
 
 #pragma warning restore CS0649
 
+    public GraphicData? cooldownOrbGraphic;
+
     public override IEnumerable<string> ConfigErrors()
     {
         foreach (var error in base.ConfigErrors())
@@ -81,7 +83,11 @@ internal class Building_GravEngine_DrawAt_Patch
             return originalMaterial;
         }
 
-        var graphic = extension.orbGraphic.GraphicColoredFor(gravEngine);
+        Graphic graphic =
+            extension.cooldownOrbGraphic != null
+            && Find.TickManager.TicksGame < gravEngine.cooldownCompleteTick
+                ? extension.cooldownOrbGraphic.GraphicColoredFor(gravEngine)
+                : extension.orbGraphic.GraphicColoredFor(gravEngine);
         return graphic.MatSingle;
     }
 }
