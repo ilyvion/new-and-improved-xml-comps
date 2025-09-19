@@ -1,13 +1,17 @@
 # top-most EditorConfig file
 root = true
 
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = true
+
 # 4 space indentation
-[*.{cs,xml}]
+[*.{cs,xml,yml,md,props,targets,csproj}]
 indent_style = space
 indent_size = 4
-
-[*.cs]
-csharp_style_namespace_declarations = file_scoped:warning
-
-# IDE0032: Use auto property
-dotnet_style_prefer_auto_properties = true
+max_line_length = 100
