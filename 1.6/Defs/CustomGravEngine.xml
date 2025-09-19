@@ -67,8 +67,13 @@
                 <orbGraphic>
                     <graphicClass>Graphic_Single</graphicClass>
                     <texPath>NIXC_RedOrb_Orbed</texPath>
-                    <drawSize>(1,1)</drawSize>
+                    <drawSize>(2,2)</drawSize>
                 </orbGraphic>
+                <cooldownOrbGraphic>
+                    <graphicClass>Graphic_Single</graphicClass>
+                    <texPath>NIXC_BlueOrb_Orbed</texPath>
+                    <drawSize>(2,2)</drawSize>
+                </cooldownOrbGraphic>
             </li>
             <li Class="NewAndImprovedXmlComps.GravshipCooldownExtension">
                 <cooldownGraphic>
