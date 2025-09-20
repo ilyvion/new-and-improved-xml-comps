@@ -14,5 +14,9 @@
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GravEngine.DrawAt" />
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GravEngine.onCooldownGraphic" />
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GravEngine.OnCooldownGraphic" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_GravEngine.Tick" />
+        <Publicize Include="Assembly-CSharp:Verse.CompGlower.glowColorOverride" />
+        <Publicize Include="Assembly-CSharp:Verse.CompGlower.SetGlowColorInternal" />
+        <Publicize Include="Assembly-CSharp:Verse.CompGlower.glowRadiusOverride" />
     </ItemGroup>
 </Project>
