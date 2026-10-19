@@ -1,5 +1,3 @@
-*/Config/*
-#!*/Config/ModsConfig.xml
-*/Saves
-*/ManagerJobs
-Player.log
+*
+!*/Config/ModsConfig.xml
+!*/Config/Prefs.xml

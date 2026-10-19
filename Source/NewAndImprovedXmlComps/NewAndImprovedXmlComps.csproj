@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <UseLaboratory>true</UseLaboratory>
         <RootNamespace>NewAndImprovedXmlComps</RootNamespace>
         <AssemblyName>NewAndImprovedXmlComps</AssemblyName>
     </PropertyGroup>

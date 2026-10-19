@@ -1,0 +1,22 @@
+This is a mod that will mostly be a collection of new comps (as well as improvements to vanilla comps) that will let modders do things with XML only that would normally require C# coding. If you're an aspiring mod author in need of a feature that vanilla comps do not offer, drop me a suggestion and I'll let you know whether or not I can add it to the mod for you!
+
+[h1]Features[/h1]
+[list]
+[\*][url=https://github.com/ilyvion/new-and-improved-xml-comps/wiki/CompImprovedSpawner]CompImprovedSpawner[/url] -- a version of the vanilla CompSpawner that allows the spawner to require fuel.
+[\*][url=https://github.com/ilyvion/new-and-improved-xml-comps/wiki/CompProperties_ImprovedPower]CompProperties_ImprovedPower[/url] -- a version of the vanilla CompProperties_Power that lets you hide the wires drawn between a building and the conduits.
+[\*][url=https://github.com/ilyvion/new-and-improved-xml-comps/wiki/GravshipCooldownExtension]GravshipCooldownExtension[/url] -- a modExtensions entry that lets you replace a GravEngine's cooldown graphic, which is hardcoded by vanilla RW.
+[\*][url=https://github.com/ilyvion/new-and-improved-xml-comps/wiki/GravshipOrbExtension]GravshipOrbExtension[/url] -- a modExtensions entry that lets you replace a GravEngine's orb graphic, which is hardcoded by vanilla RW.
+[/list]
+
+[h1]Version support[/h1]
+
+This mod supports RimWorld 1.5 and 1.6
+
+[h1]Source code[/h1]
+
+Source code can be found on [url=https://github.com/ilyvion/new-and-improved-xml-comps/]GitHub[/url]. Report any bugs or feature suggestions/requests on the [url=https://github.com/ilyvion/new-and-improved-xml-comps/issues]issue tracker[/url].
+
+[h1]Like my work?[/h1]
+[url=https://ko-fi.com/ilyvion][img]https://alexanderschroeder.net/files/steam/kofi_brandasset/support_me_on_kofi_beige.png[/img][/url]
+
+Feel free to [url=https://discord.gg/J9Q78avHgM]join my Discord server[/url] if you want to talk to me (and other members) about my projects, or just to hang out, I guess. :)
