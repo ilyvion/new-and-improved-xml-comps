@@ -1,3 +1,5 @@
+[assembly: InternalsVisibleTo("NewAndImprovedXmlComps.Tests")]
+
 namespace NewAndImprovedXmlComps;
 
 /// <summary>
