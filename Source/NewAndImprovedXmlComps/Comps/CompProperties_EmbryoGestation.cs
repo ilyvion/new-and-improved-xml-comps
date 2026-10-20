@@ -17,4 +17,18 @@ public class CompProperties_EmbryoGestation : CompProperties
     {
         compClass = typeof(CompEmbryoGestation);
     }
+
+    /// <inheritdoc/>
+    public override IEnumerable<string> ConfigErrors(ThingDef parentDef)
+    {
+        foreach (var error in base.ConfigErrors(parentDef))
+        {
+            yield return error;
+        }
+
+        if (embryoGestationTicks <= 0)
+        {
+            yield return $"{nameof(embryoGestationTicks)} must be greater than 0, but is {embryoGestationTicks}.";
+        }
+    }
 }

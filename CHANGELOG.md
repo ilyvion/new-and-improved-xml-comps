@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   A grav engine's cooldownGlowRadius now always lights up the map. Before, the larger radius only showed if cooldownGlowColor was also set, and not at all after loading a save made during the cooldown.
 -   A glow color the player picked for a grav engine is no longer reset to the default when its cooldown ends.
 -   Reduced the performance cost of NewAndImprovedXmlComps_PowerGenFactor on maps with many powered buildings. A building's factor is now recalculated every 250 ticks, so a change to it, like linking or unlinking a facility, can take a few seconds to show in its power output.
+-   An embryoGestationTicks of 0 or less is now reported as a config error at startup. Before, such a value made growth vats finish gestation instantly and draw the fetus incorrectly.
 
 ## [0.8.0] - 2025-09-20
 
