@@ -30,16 +30,24 @@ public partial class CompImprovedSpawner : CompSpawner
     /// Determines whether the spawner is currently active based on power and fuel requirements.
     /// </summary>
     /// <returns>True if the spawner is active; otherwise, false.</returns>
-    protected virtual bool IsActive()
-    {
-        var requiresPower = PropsSpawner.requiresPower;
-        var requiresFuel = PropsSpawner.requiresFuel;
+    protected virtual bool IsActive() =>
+        IsActive(
+            PropsSpawner.requiresPower,
+            PropsSpawner.requiresFuel,
+            () => PowerOn,
+            () => HasFuel
+        );
 
-        return (!requiresPower && !requiresFuel)
-            || (requiresPower && requiresFuel && PowerOn && HasFuel)
-            || (requiresPower && !requiresFuel && PowerOn)
-            || (!requiresPower && requiresFuel && HasFuel);
-    }
+    internal static bool IsActive(
+        bool requiresPower,
+        bool requiresFuel,
+        Func<bool> powerOn,
+        Func<bool> hasFuel
+    ) =>
+        (!requiresPower && !requiresFuel)
+        || (requiresPower && requiresFuel && powerOn() && hasFuel())
+        || (requiresPower && !requiresFuel && powerOn())
+        || (!requiresPower && requiresFuel && hasFuel());
 
     /// <inheritdoc/>
     public override string CompInspectStringExtra() => ReverseCompInspectStringExtra(this);
