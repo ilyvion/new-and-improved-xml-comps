@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Dependencies
+
+-   ilyvion's Laboratory: v0.25.1
+
+> [!IMPORTANT]  
+> This release requires an update to ilyvion's Laboratory!
+
+### Added
+
+-   Support for RimWorld 1.7.
+
 ### Fixed
 
 -   Selecting a human embryo threw an error, and its buttons failed to show, when the map had no free growth vat.

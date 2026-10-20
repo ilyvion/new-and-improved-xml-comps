@@ -109,6 +109,21 @@ internal sealed class PowerGenFactorTests
     public static void PowerConsumptionIsScaledTheSameWay() =>
         Expect.AreApproximatelyEqual(-1100f, OutputWithFacilities(1, -BaseOutput));
 
+#if v1_7_OR_GREATER
+    // On 1.7 the JIT can inline the small PowerOutput getter into its callers, bypassing the patch.
+    [Test]
+    public static void VanillaCallersOfPowerOutputSeeTheScaledOutput()
+    {
+        using var scene = new GeneratorScene(Find.CurrentMap, 1);
+        scene.PowerTrader.PowerOutput = BaseOutput;
+
+        Expect.AreApproximatelyEqual(
+            1100f * CompPower.WattsToWattDaysPerTick,
+            scene.PowerTrader.EnergyOutputPerTick
+        );
+    }
+#endif
+
     [Test]
     public static void AnEmpStunnedGeneratorProducesNothing()
     {

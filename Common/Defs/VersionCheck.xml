@@ -4,6 +4,6 @@
         <defName>NIXC_VersionCheck</defName>
         <modName>New and Improved XML Comps</modName>
         <majorVersion>0</majorVersion>
-        <minorVersion>16</minorVersion>
+        <minorVersion>25</minorVersion>
     </ilyvion.Laboratory.VersionCheckDef>
 </Defs>

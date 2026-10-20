@@ -22,7 +22,7 @@
         one already made public inside the referenced NewAndImprovedXmlComps assembly; CS0436 is
         harmless here.
     -->
-    <PropertyGroup Condition="'$(RimWorldVersion)' != '1.6'">
+    <PropertyGroup Condition="'$(RimWorldVersion)' != '1.6' And '$(RimWorldVersion)' != '1.7'">
         <NoWarn>$(NoWarn);CS0436</NoWarn>
     </PropertyGroup>
     <ItemGroup>
@@ -32,13 +32,13 @@
         </ProjectReference>
     </ItemGroup>
     <!--
-        This mod's tests build for RimWorld 1.6 only, the one supported version DevTools also
+        This mod's tests build for RimWorld 1.6 and 1.7, the supported versions DevTools also
         supports. For any other RimWorldVersion this project builds as an empty assembly: both the
         test sources and the DevTools reference are excluded below. DevTools' own OutDir is
         relative to its clone location, so it's redirected to this mod's <version>/Assemblies
         folder.
     -->
-    <ItemGroup Condition="'$(RimWorldVersion)' == '1.6'">
+    <ItemGroup Condition="'$(RimWorldVersion)' == '1.6' Or '$(RimWorldVersion)' == '1.7'">
         <ProjectReference
             Include="$(ProjectDependenciesBasePath)\Third-Party\DevTools\DevTools\DevTools.csproj"
             AdditionalProperties="RimWorldVersion=$(RimWorldVersion);OutDir=$(MSBuildThisFileDirectory)..\..\$(RimWorldVersion)\Assemblies\"
@@ -50,12 +50,15 @@
         <Publicize Include="Assembly-CSharp:RimWorld.Building_Enterable.startTick" />
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.DrawAt" />
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.TryGrowEmbryo" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.FetusLateStage" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.FetusMinSize" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.FetusMaxSize" />
         <Publicize Include="Assembly-CSharp:RimWorld.HumanEmbryo.BestAvailableGrowthVat" />
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GravEngine.DrawAt" />
         <Publicize Include="Assembly-CSharp:RimWorld.StunHandler.stunFromEMP" />
         <Publicize Include="Assembly-CSharp:RimWorld.CompPowerTrader.powerOnInt" />
     </ItemGroup>
-    <ItemGroup Condition="'$(RimWorldVersion)' != '1.6'">
+    <ItemGroup Condition="'$(RimWorldVersion)' != '1.6' And '$(RimWorldVersion)' != '1.7'">
         <Compile Remove="**/*.cs" />
     </ItemGroup>
 </Project>

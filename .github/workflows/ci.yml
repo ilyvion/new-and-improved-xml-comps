@@ -24,6 +24,8 @@ jobs:
         with:
             mod_name: "NewAndImprovedXmlComps"
             artifact_suffix: ${{ github.sha }}
+            extra_files: |-
+                Odyssey
             license_files: |-
                 LICENSE
                 LICENSE.Apache-2.0

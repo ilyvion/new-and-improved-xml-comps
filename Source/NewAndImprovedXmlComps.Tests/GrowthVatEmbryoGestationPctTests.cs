@@ -76,6 +76,27 @@ internal sealed class GrowthVatEmbryoGestationPctTests
         Expect.AreApproximatelyEqual(1f, scene.PctWithTicksRemaining(0));
     }
 
+#if v1_7_OR_GREATER
+    // On 1.7 the JIT can inline the small EmbryoGestationPct getter into DrawAt, bypassing the
+    // patch.
+    [Test]
+    public static void DrawAtSizesTheFetusByTheCustomDuration()
+    {
+        const int Ticks = GenDate.TicksPerDay;
+        using var scene = new GrowthVatScene(Find.CurrentMap, Ticks);
+        var vat = scene.SpawnVat(IntVec3.Zero);
+        _ = scene.LoadEmbryo(vat);
+        vat.startTick = Find.TickManager.TicksGame + (Ticks / 2);
+
+        vat.DrawAt(vat.DrawPos);
+
+        Expect.AreApproximatelyEqual(
+            Mathf.Lerp(Building_GrowthVat.FetusMinSize, Building_GrowthVat.FetusMaxSize, 0.5f),
+            vat.FetusLateStage.drawSize.x
+        );
+    }
+#endif
+
     [Test]
     public static void WithACustomDurationLongerThanVanillaProgressStartsAtZero()
     {

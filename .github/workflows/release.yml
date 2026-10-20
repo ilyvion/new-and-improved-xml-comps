@@ -17,6 +17,8 @@ jobs:
                 LICENSE.Apache-2.0
                 LICENSE.MIT
             artifact_suffix: Release
+            extra_files: |-
+                Odyssey
 
     release:
         permissions:
