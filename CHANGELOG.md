@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Selecting a human embryo threw an error, and its buttons failed to show, when the map had no free growth vat.
 -   In growth vats with a custom embryoGestationTicks, the fetus is now drawn at a size matching its actual gestation progress. Before, it was sized against the vanilla 9-day duration, so with a shorter gestation it appeared almost fully grown from the start.
+-   A grav engine's cooldownGlowRadius now always lights up the map. Before, the larger radius only showed if cooldownGlowColor was also set, and not at all after loading a save made during the cooldown.
+-   A glow color the player picked for a grav engine is no longer reset to the default when its cooldown ends.
 
 ## [0.8.0] - 2025-09-20
 

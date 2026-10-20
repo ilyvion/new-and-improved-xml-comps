@@ -12,6 +12,6 @@ Whenever a change adds, changes or removes something mod authors use from XML (a
 - Changed feature: update its page's description, fields and examples to match.
 - Removed feature: delete its page and its `SteamDescription.txt` entry.
 
-Don't commit or push wiki changes; tell the user they're in the wiki repo for review.
+Don't commit or push wiki changes; tell the user they're in the wiki repo for review. When producing a commit message, also produce one for the Wiki if it was edited during the session.
 
 @CLAUDE.SHARED.md

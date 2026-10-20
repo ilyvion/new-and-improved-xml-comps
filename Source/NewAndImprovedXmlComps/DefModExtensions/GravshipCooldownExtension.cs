@@ -48,39 +48,77 @@ internal sealed class Building_GravEngine_Tick_Patch
     internal static void Postfix(Building_GravEngine __instance)
     {
         var extension = __instance.def.GetModExtension<GravshipCooldownExtension>();
-        if (
-            extension == null
-            || !__instance.TryGetComp<CompGlower>(out var compGlower)
-            || (extension.cooldownGlowColor == null && extension.cooldownGlowRadius == null)
-        )
+        if (extension == null || !__instance.TryGetComp<CompGlower>(out var compGlower))
         {
             return;
         }
 
-        if (Find.TickManager.TicksGame < __instance.cooldownCompleteTick)
+        var onCooldown = Find.TickManager.TicksGame < __instance.cooldownCompleteTick;
+        var radiusChanged = TryGetOverrideChange(
+            onCooldown,
+            extension.cooldownGlowRadius,
+            compGlower.glowRadiusOverride,
+            out var radiusOverride
+        );
+        var colorChanged = TryGetOverrideChange(
+            onCooldown,
+            extension.cooldownGlowColor,
+            compGlower.glowColorOverride,
+            out var colorOverride
+        );
+        if (!radiusChanged && !colorChanged)
         {
-            if (extension.cooldownGlowRadius != null && !compGlower.glowRadiusOverride.HasValue)
-            {
-                compGlower.glowRadiusOverride = extension.cooldownGlowRadius;
-            }
-
-            if (extension.cooldownGlowColor.HasValue && !compGlower.HasGlowColorOverride)
-            {
-                compGlower.SetGlowColorInternal(extension.cooldownGlowColor.Value);
-            }
+            return;
         }
-        else
+
+        // The glow grid copies a glower's radius and color when the glower is registered.
+        var glowGrid = __instance.Map.glowGrid;
+        glowGrid.DeRegisterGlower(compGlower);
+        compGlower.glowRadiusOverride = radiusOverride;
+        compGlower.glowColorOverride = colorOverride;
+        if (compGlower.Glows)
         {
-            if (extension.cooldownGlowRadius != null && compGlower.glowRadiusOverride.HasValue)
-            {
-                compGlower.glowRadiusOverride = null;
-            }
-
-            if (extension.cooldownGlowColor.HasValue && compGlower.HasGlowColorOverride)
-            {
-                compGlower.SetGlowColorInternal(null);
-            }
+            glowGrid.RegisterGlower(compGlower);
         }
+    }
+
+    /// <summary>
+    /// While on cooldown, applies the configured override unless another one is already set;
+    /// off cooldown, removes the override only if it is still the configured one.
+    /// </summary>
+    internal static bool TryGetOverrideChange<T>(
+        bool onCooldown,
+        T? configured,
+        T? current,
+        out T? changed
+    )
+        where T : struct
+    {
+        changed = current;
+        if (configured is not T configuredValue)
+        {
+            return false;
+        }
+
+        if (onCooldown)
+        {
+            if (current.HasValue)
+            {
+                return false;
+            }
+            changed = configuredValue;
+            return true;
+        }
+
+        if (
+            current is not T currentValue
+            || !EqualityComparer<T>.Default.Equals(currentValue, configuredValue)
+        )
+        {
+            return false;
+        }
+        changed = null;
+        return true;
     }
 }
 #endif
