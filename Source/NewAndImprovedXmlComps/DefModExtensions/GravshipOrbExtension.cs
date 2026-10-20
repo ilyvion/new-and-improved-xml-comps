@@ -111,18 +111,19 @@ internal sealed class Building_GravEngine_DrawAt_Patch
         Building_GravEngine gravEngine
     )
     {
-        var extension = gravEngine.def.GetModExtension<GravshipOrbExtension>();
-        if (extension == null || extension.orbGraphic == null)
-        {
-            return originalMaterial;
-        }
-
-        var graphic =
-            extension.cooldownOrbGraphic != null
-            && Find.TickManager.TicksGame < gravEngine.cooldownCompleteTick
-                ? extension.cooldownOrbGraphic.GraphicColoredFor(gravEngine)
-                : extension.orbGraphic.GraphicColoredFor(gravEngine);
-        return graphic.MatSingle;
+        var graphicData = SelectOrbGraphic(
+            gravEngine.def.GetModExtension<GravshipOrbExtension>(),
+            Find.TickManager.TicksGame < gravEngine.cooldownCompleteTick
+        );
+        return graphicData?.GraphicColoredFor(gravEngine).MatSingle ?? originalMaterial;
     }
+
+    internal static GraphicData? SelectOrbGraphic(
+        GravshipOrbExtension? extension,
+        bool onCooldown
+    ) =>
+        extension?.orbGraphic == null ? null
+        : onCooldown && extension.cooldownOrbGraphic != null ? extension.cooldownOrbGraphic
+        : extension.orbGraphic;
 }
 #endif
