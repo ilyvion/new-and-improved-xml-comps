@@ -66,6 +66,42 @@ public partial class CompEmbryoGestation
             $"{nameof(Building_GrowthVat)}.{nameof(Building_GrowthVat.TryGrowEmbryo)}"
         );
 
+    [HarmonyPatch(nameof(Building_GrowthVat.EmbryoGestationPct), MethodType.Getter)]
+    [HarmonyTranspiler]
+    internal static IEnumerable<CodeInstruction> EmbryoGestationPctTranspiler(
+        IEnumerable<CodeInstruction> instructions,
+        ILGenerator generator
+    )
+    {
+        var codeMatcher = new CodeMatcher(instructions, generator);
+
+        _ = codeMatcher.SearchForward(i =>
+            i.opcode == OpCodes.Ldc_R4
+            && i.operand is float value
+            && value == Building_GrowthVat.EmbryoGestationTicks
+        );
+        if (!codeMatcher.IsValid)
+        {
+            Log.Error(
+                $"Could not patch {nameof(Building_GrowthVat)}.{nameof(Building_GrowthVat.EmbryoGestationPct)}, IL does not match expectations: ldc.r4 for Building_GrowthVat.EmbryoGestationTicks not found."
+            );
+            return codeMatcher.Instructions();
+        }
+
+        _ = codeMatcher
+            .RemoveInstruction()
+            .Insert([
+                new(OpCodes.Ldarg_0),
+                new(
+                    OpCodes.Call,
+                    AccessTools.Method(typeof(CompEmbryoGestation), nameof(GetEmbryoGestationTicks))
+                ),
+                new(OpCodes.Conv_R4),
+            ]);
+
+        return codeMatcher.Instructions();
+    }
+
     // vat is null when HumanEmbryo.GetGizmos finds no available growth vat.
     internal static int GetEmbryoGestationTicks(Building_GrowthVat? vat) =>
         vat?.GetComp<CompEmbryoGestation>()?.PropsEmbryoGestation.embryoGestationTicks

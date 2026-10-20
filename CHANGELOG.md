@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 -   Selecting a human embryo threw an error, and its buttons failed to show, when the map had no free growth vat.
+-   In growth vats with a custom embryoGestationTicks, the fetus is now drawn at a size matching its actual gestation progress. Before, it was sized against the vanilla 9-day duration, so with a shorter gestation it appeared almost fully grown from the start.
 
 ## [0.8.0] - 2025-09-20
 

@@ -135,6 +135,25 @@ internal sealed class TranspilerSmokeTests
         );
 
     [Test]
+    public static void GrowthVatEmbryoGestationPctIsPatched()
+    {
+        var original = AccessTools.PropertyGetter(
+            typeof(Building_GrowthVat),
+            nameof(Building_GrowthVat.EmbryoGestationPct)
+        );
+        ExpectPatchedWith(original, CompEmbryoGestation.EmbryoGestationPctTranspiler);
+        var instructions = Transpile(original, CompEmbryoGestation.EmbryoGestationPctTranspiler);
+        ExpectCalls(instructions, GetEmbryoGestationTicks);
+        Expect.None(
+            instructions,
+            i =>
+                i.opcode == OpCodes.Ldc_R4
+                && i.operand is float value
+                && value == Building_GrowthVat.EmbryoGestationTicks
+        );
+    }
+
+    [Test]
     public static void GrowthVatTryGrowEmbryoIsPatched() =>
         ExpectGestationTicksPatched(
             AccessTools.Method(

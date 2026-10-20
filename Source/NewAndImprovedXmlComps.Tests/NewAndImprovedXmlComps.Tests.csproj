@@ -47,6 +47,7 @@
             <Private>false</Private>
         </ProjectReference>
         <Publicize Include="Assembly-CSharp:RimWorld.CompSpawner.TickIntervalDelta" />
+        <Publicize Include="Assembly-CSharp:RimWorld.Building_Enterable.startTick" />
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.DrawAt" />
         <Publicize Include="Assembly-CSharp:RimWorld.Building_GrowthVat.TryGrowEmbryo" />
         <Publicize Include="Assembly-CSharp:RimWorld.HumanEmbryo.BestAvailableGrowthVat" />
