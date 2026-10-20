@@ -1,1 +1,19 @@
-../rimworld-utils/mod.code-workspace
+{
+	"folders": [
+		{
+			"name": "new-and-improved-xml-comps",
+			"path": "."
+		},
+		{
+			"name": "new-and-improved-xml-comps.wiki",
+			"path": "../new-and-improved-xml-comps.wiki"
+		},
+		{
+			"name": "Data",
+			"path": "../../../../.var/app/com.valvesoftware.Steam/.steam/steam/steamapps/common/RimWorld/Data"
+		}
+	],
+	"settings": {
+		"xml.format.maxLineWidth": 0
+	}
+}
