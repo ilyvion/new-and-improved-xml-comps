@@ -29,37 +29,7 @@ public partial class CompImprovedSpawner
             ILGenerator generator
         )
         {
-            var codeMatcher = new CodeMatcher(instructions, generator);
-
-            _ = codeMatcher.SearchForward(i =>
-                i.opcode == OpCodes.Call
-                && i.operand is MethodInfo m
-                && m == CompSpawner_get_PropsSpawner
-            );
-            if (!codeMatcher.IsValid)
-            {
-                Log.Error(
-                    "Could not reverse patch TickInterval, IL does not match expectations: call to get property PropsSpawner not found."
-                );
-                return codeMatcher.Instructions();
-            }
-
-            // Fetch the label we need to jump to
-            _ = codeMatcher.Advance(2);
-            var label = codeMatcher.Operand;
-
-            // Go back
-            _ = codeMatcher.Advance(-2);
-
-            // Inject ourselves
-            _ = codeMatcher.Insert([
-                new(OpCodes.Callvirt, CompImprovedSpawner_IsActive),
-                new(OpCodes.Brtrue_S, label),
-                new(OpCodes.Ret),
-                new(OpCodes.Ldarg_0),
-            ]);
-
-            return codeMatcher.Instructions();
+            return TickIntervalDeltaTranspiler(instructions, generator);
         }
 #pragma warning restore IDE0062 // Make local function 'static'
 
@@ -67,6 +37,44 @@ public partial class CompImprovedSpawner
         _ = @this;
         _ = interval;
         _ = Transpiler(null!, null!);
+    }
+
+    internal static IEnumerable<CodeInstruction> TickIntervalDeltaTranspiler(
+        IEnumerable<CodeInstruction> instructions,
+        ILGenerator generator
+    )
+    {
+        var codeMatcher = new CodeMatcher(instructions, generator);
+
+        _ = codeMatcher.SearchForward(i =>
+            i.opcode == OpCodes.Call
+            && i.operand is MethodInfo m
+            && m == CompSpawner_get_PropsSpawner
+        );
+        if (!codeMatcher.IsValid)
+        {
+            Log.Error(
+                "Could not reverse patch TickInterval, IL does not match expectations: call to get property PropsSpawner not found."
+            );
+            return codeMatcher.Instructions();
+        }
+
+        // Fetch the label we need to jump to
+        _ = codeMatcher.Advance(2);
+        var label = codeMatcher.Operand;
+
+        // Go back
+        _ = codeMatcher.Advance(-2);
+
+        // Inject ourselves
+        _ = codeMatcher.Insert([
+            new(OpCodes.Callvirt, CompImprovedSpawner_IsActive),
+            new(OpCodes.Brtrue_S, label),
+            new(OpCodes.Ret),
+            new(OpCodes.Ldarg_0),
+        ]);
+
+        return codeMatcher.Instructions();
     }
 
     private static readonly FieldInfo CompProperties_Spawner_requiresPower = AccessTools.Field(
@@ -84,41 +92,7 @@ public partial class CompImprovedSpawner
             ILGenerator generator
         )
         {
-            var codeMatcher = new CodeMatcher(instructions, generator);
-
-            _ = codeMatcher.SearchForward(i =>
-                i.opcode == OpCodes.Ldfld
-                && i.operand is FieldInfo f
-                && f == CompProperties_Spawner_requiresPower
-            );
-            if (!codeMatcher.IsValid)
-            {
-                Log.Error(
-                    "Could not reverse patch CompInspectStringExtra, IL does not match expectations: access to field CompProperties_Spawner.requiresPower not found."
-                );
-                return codeMatcher.Instructions();
-            }
-
-            // Fetch the label we need to jump to if false
-            _ = codeMatcher.Advance(-3);
-            var falseLabel = codeMatcher.Operand;
-
-            // Fetch the label we need to jump to if true
-            _ = codeMatcher.Advance(4);
-            var trueLabel = codeMatcher.Operand;
-
-            // Go back
-            _ = codeMatcher.Advance(-2);
-
-            // Inject ourselves
-            _ = codeMatcher.Insert([
-                new(OpCodes.Callvirt, CompImprovedSpawner_IsActive),
-                new(OpCodes.Brfalse_S, falseLabel),
-                new(OpCodes.Br_S, trueLabel),
-                new(OpCodes.Ldarg_0),
-            ]);
-
-            return codeMatcher.Instructions();
+            return CompInspectStringExtraTranspiler(instructions, generator);
         }
 #pragma warning restore IDE0062 // Make local function 'static'
 
@@ -126,5 +100,47 @@ public partial class CompImprovedSpawner
         _ = @this;
         _ = Transpiler(null!, null!);
         return null!;
+    }
+
+    internal static IEnumerable<CodeInstruction> CompInspectStringExtraTranspiler(
+        IEnumerable<CodeInstruction> instructions,
+        ILGenerator generator
+    )
+    {
+        var codeMatcher = new CodeMatcher(instructions, generator);
+
+        _ = codeMatcher.SearchForward(i =>
+            i.opcode == OpCodes.Ldfld
+            && i.operand is FieldInfo f
+            && f == CompProperties_Spawner_requiresPower
+        );
+        if (!codeMatcher.IsValid)
+        {
+            Log.Error(
+                "Could not reverse patch CompInspectStringExtra, IL does not match expectations: access to field CompProperties_Spawner.requiresPower not found."
+            );
+            return codeMatcher.Instructions();
+        }
+
+        // Fetch the label we need to jump to if false
+        _ = codeMatcher.Advance(-3);
+        var falseLabel = codeMatcher.Operand;
+
+        // Fetch the label we need to jump to if true
+        _ = codeMatcher.Advance(4);
+        var trueLabel = codeMatcher.Operand;
+
+        // Go back
+        _ = codeMatcher.Advance(-2);
+
+        // Inject ourselves
+        _ = codeMatcher.Insert([
+            new(OpCodes.Callvirt, CompImprovedSpawner_IsActive),
+            new(OpCodes.Brfalse_S, falseLabel),
+            new(OpCodes.Br_S, trueLabel),
+            new(OpCodes.Ldarg_0),
+        ]);
+
+        return codeMatcher.Instructions();
     }
 }

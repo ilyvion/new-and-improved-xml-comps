@@ -6,7 +6,7 @@ namespace NewAndImprovedXmlComps;
 /// Harmony patch class for CompPower methods to support improved power grid printing.
 /// </summary>
 [HarmonyPatch(typeof(CompPower))]
-public class CompImprovedPower_CompPrintForPowerGrid
+public static class CompImprovedPower_CompPrintForPowerGrid
 {
     private static readonly FieldInfo ThingDefOf_HiddenConduit = AccessTools.Field(
         typeof(ThingDefOf),
@@ -24,7 +24,7 @@ public class CompImprovedPower_CompPrintForPowerGrid
 
     [HarmonyTranspiler]
     [HarmonyPatch(nameof(CompPower.CompPrintForPowerGrid))]
-    private static IEnumerable<CodeInstruction> CompPrintForPowerGrid(
+    internal static IEnumerable<CodeInstruction> CompPrintForPowerGrid(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
     ) =>
@@ -42,7 +42,7 @@ public class CompImprovedPower_CompPrintForPowerGrid
 
     [HarmonyTranspiler]
     [HarmonyPatch(nameof(CompPower.PostPrintOnto))]
-    private static IEnumerable<CodeInstruction> PostPrintOnto(
+    internal static IEnumerable<CodeInstruction> PostPrintOnto(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
     ) =>

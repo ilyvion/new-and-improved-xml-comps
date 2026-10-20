@@ -8,6 +8,7 @@ public partial class CompEmbryoGestation
     internal static IEnumerable<CodeInstruction> EmbryoGestationTicksTranspiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator,
+        string patchedMethodName,
         CodeInstruction[]? getBuildingInstructions = null
     )
     {
@@ -21,7 +22,7 @@ public partial class CompEmbryoGestation
         if (!codeMatcher.IsValid)
         {
             Log.Error(
-                "Could not reverse patch DrawAt, IL does not match expectations: ldc.i4 for Building_GrowthVat.EmbryoGestationTicks not found."
+                $"Could not patch {patchedMethodName}, IL does not match expectations: ldc.i4 for Building_GrowthVat.EmbryoGestationTicks not found."
             );
             return codeMatcher.Instructions();
         }
@@ -43,20 +44,30 @@ public partial class CompEmbryoGestation
 
     [HarmonyPatch(nameof(Building_GrowthVat.DrawAt))]
     [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> DrawAtTranspiler(
+    internal static IEnumerable<CodeInstruction> DrawAtTranspiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
-    ) => EmbryoGestationTicksTranspiler(instructions, generator);
+    ) =>
+        EmbryoGestationTicksTranspiler(
+            instructions,
+            generator,
+            $"{nameof(Building_GrowthVat)}.{nameof(Building_GrowthVat.DrawAt)}"
+        );
 
     [HarmonyPatch(nameof(Building_GrowthVat.TryGrowEmbryo))]
     [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> TryGrowEmbryoTranspiler(
+    internal static IEnumerable<CodeInstruction> TryGrowEmbryoTranspiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
-    ) => EmbryoGestationTicksTranspiler(instructions, generator);
+    ) =>
+        EmbryoGestationTicksTranspiler(
+            instructions,
+            generator,
+            $"{nameof(Building_GrowthVat)}.{nameof(Building_GrowthVat.TryGrowEmbryo)}"
+        );
 
     // vat is null when HumanEmbryo.GetGizmos finds no available growth vat.
-    private static int GetEmbryoGestationTicks(Building_GrowthVat? vat) =>
+    internal static int GetEmbryoGestationTicks(Building_GrowthVat? vat) =>
         vat?.GetComp<CompEmbryoGestation>()?.PropsEmbryoGestation.embryoGestationTicks
         ?? Building_GrowthVat.EmbryoGestationTicks;
 }
@@ -64,7 +75,7 @@ public partial class CompEmbryoGestation
 [HarmonyPatch]
 internal sealed class Building_GrowthVat_GetGizmos_Patch
 {
-    private static MethodInfo TargetMethod()
+    internal static MethodInfo TargetMethod()
     {
         var closures = AccessTools.FirstInner(
             typeof(Building_GrowthVat),
@@ -77,7 +88,7 @@ internal sealed class Building_GrowthVat_GetGizmos_Patch
         return AccessTools.Method(closures, nameof(IEnumerator.MoveNext));
     }
 
-    private static IEnumerable<CodeInstruction> Transpiler(
+    internal static IEnumerable<CodeInstruction> Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
     )
@@ -104,6 +115,7 @@ internal sealed class Building_GrowthVat_GetGizmos_Patch
         return CompEmbryoGestation.EmbryoGestationTicksTranspiler(
             instructions,
             generator,
+            $"{nameof(Building_GrowthVat)}.{nameof(Building_GrowthVat.GetGizmos)}",
             [new(OpCodes.Ldarg_0), new(OpCodes.Ldfld, instruction.operand)]
         );
     }
@@ -112,7 +124,7 @@ internal sealed class Building_GrowthVat_GetGizmos_Patch
 [HarmonyPatch]
 internal sealed class HumanEmbryo_GetGizmos_Patch
 {
-    private static MethodInfo TargetMethod()
+    internal static MethodInfo TargetMethod()
     {
         var closures = AccessTools.FirstInner(
             typeof(HumanEmbryo),
@@ -125,7 +137,7 @@ internal sealed class HumanEmbryo_GetGizmos_Patch
         return AccessTools.Method(closures, nameof(IEnumerator.MoveNext));
     }
 
-    private static IEnumerable<CodeInstruction> Transpiler(
+    internal static IEnumerable<CodeInstruction> Transpiler(
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
     )
@@ -157,6 +169,7 @@ internal sealed class HumanEmbryo_GetGizmos_Patch
         return CompEmbryoGestation.EmbryoGestationTicksTranspiler(
             instructions,
             generator,
+            $"{nameof(HumanEmbryo)}.{nameof(HumanEmbryo.GetGizmos)}",
             [
                 new(OpCodes.Ldloc_S, bestVatLocalInstruction.operand),
                 new(OpCodes.Ldfld, bestVatInstruction.operand),
@@ -169,7 +182,7 @@ internal sealed class HumanEmbryo_GetGizmos_Patch
 internal sealed class HumanEmbryo_BestAvailableGrowthVat_Patch
 {
 #pragma warning disable CA1859 // Use concrete types when possible for improved performance
-    private static IEnumerable<CodeInstruction> Transpiler(
+    internal static IEnumerable<CodeInstruction> Transpiler(
 #pragma warning restore CA1859 // Use concrete types when possible for improved performance
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
@@ -182,7 +195,7 @@ internal sealed class HumanEmbryo_BestAvailableGrowthVat_Patch
         if (!codeMatcher.IsValid)
         {
             Log.Error(
-                "Could not patch HumanEmbryo.GetGizmos, IL does not match expectations: call to SortBy method not found."
+                "Could not patch HumanEmbryo.BestAvailableGrowthVat, IL does not match expectations: call to SortBy method not found."
             );
             return originalInstructions;
         }
@@ -191,7 +204,7 @@ internal sealed class HumanEmbryo_BestAvailableGrowthVat_Patch
         if (codeMatcher.Instruction.opcode != OpCodes.Ldarg_0)
         {
             Log.Error(
-                "Could not patch HumanEmbryo.GetGizmos, IL does not match expectations: expected Ldarg_0 before SortBy call; was "
+                "Could not patch HumanEmbryo.BestAvailableGrowthVat, IL does not match expectations: expected Ldarg_0 before SortBy call; was "
                     + codeMatcher.Instruction
             );
             return originalInstructions;
@@ -219,7 +232,7 @@ internal sealed class HumanEmbryo_BestAvailableGrowthVat_Patch
         if (!codeMatcher.IsValid)
         {
             Log.Error(
-                "Could not patch HumanEmbryo.GetGizmos, IL does not match expectations: call to SortBy method not found."
+                "Could not patch HumanEmbryo.BestAvailableGrowthVat, IL does not match expectations: call to SortBy method not found."
             );
             return originalInstructions;
         }
@@ -231,7 +244,7 @@ internal sealed class HumanEmbryo_BestAvailableGrowthVat_Patch
         return codeMatcher.Instructions();
     }
 
-    private static Func<Building_GrowthVat, int> SortByEmbryoGestationTicks() =>
+    internal static Func<Building_GrowthVat, int> SortByEmbryoGestationTicks() =>
         vat =>
         {
             var comp = vat.GetComp<CompEmbryoGestation>();

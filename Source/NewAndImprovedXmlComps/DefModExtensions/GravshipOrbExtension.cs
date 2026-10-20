@@ -30,7 +30,7 @@ internal sealed class Building_GravEngine_DrawAt_Patch
 {
     [HarmonyTranspiler]
 #pragma warning disable CA1859 // Use concrete types when possible for improved performance
-    private static IEnumerable<CodeInstruction> Transpiler(
+    internal static IEnumerable<CodeInstruction> Transpiler(
 #pragma warning restore CA1859 // Use concrete types when possible for improved performance
         IEnumerable<CodeInstruction> instructions,
         ILGenerator generator
@@ -94,7 +94,7 @@ internal sealed class Building_GravEngine_DrawAt_Patch
         return codeMatcher.Instructions();
     }
 
-    private static void UpdateVector3(Building_GravEngine gravEngine, ref Vector3 vector3)
+    internal static void UpdateVector3(Building_GravEngine gravEngine, ref Vector3 vector3)
     {
         var extension = gravEngine.def.GetModExtension<GravshipOrbExtension>();
         if (extension == null || extension.orbGraphic == null)
@@ -106,7 +106,10 @@ internal sealed class Building_GravEngine_DrawAt_Patch
         vector3 = new Vector3(orbGraphic.drawSize.x, 1f, orbGraphic.drawSize.y);
     }
 
-    private static Material GetOrbGraphic(Material originalMaterial, Building_GravEngine gravEngine)
+    internal static Material GetOrbGraphic(
+        Material originalMaterial,
+        Building_GravEngine gravEngine
+    )
     {
         var extension = gravEngine.def.GetModExtension<GravshipOrbExtension>();
         if (extension == null || extension.orbGraphic == null)
