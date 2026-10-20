@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   In growth vats with a custom embryoGestationTicks, the fetus is now drawn at a size matching its actual gestation progress. Before, it was sized against the vanilla 9-day duration, so with a shorter gestation it appeared almost fully grown from the start.
 -   A grav engine's cooldownGlowRadius now always lights up the map. Before, the larger radius only showed if cooldownGlowColor was also set, and not at all after loading a save made during the cooldown.
 -   A glow color the player picked for a grav engine is no longer reset to the default when its cooldown ends.
+-   Reduced the performance cost of NewAndImprovedXmlComps_PowerGenFactor on maps with many powered buildings. A building's factor is now recalculated every 250 ticks, so a change to it, like linking or unlinking a facility, can take a few seconds to show in its power output.
 
 ## [0.8.0] - 2025-09-20
 

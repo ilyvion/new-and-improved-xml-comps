@@ -36,6 +36,7 @@ internal sealed class PowerGenFactorTests
 
         public Building Generator { get; }
         public CompPowerTrader PowerTrader { get; }
+        public List<Thing> Facilities { get; } = [];
 
         public GeneratorScene(Map map, int facilityCount)
         {
@@ -54,7 +55,7 @@ internal sealed class PowerGenFactorTests
             Generator = (Building)Spawn(generatorDef, map.Center);
             for (var i = 0; i < facilityCount; i++)
             {
-                _ = Spawn(facilityDef, map.Center + FacilityOffsets[i]);
+                Facilities.Add(Spawn(facilityDef, map.Center + FacilityOffsets[i]));
             }
 
             PowerTrader = Generator.GetComp<CompPowerTrader>();
@@ -123,6 +124,22 @@ internal sealed class PowerGenFactorTests
         );
     }
 #endif
+
+    [Test]
+    public static void AFactorChangeTakesEffectOnceTheCachedFactorGoesStale()
+    {
+        using var scene = new GeneratorScene(Find.CurrentMap, 1);
+        scene.PowerTrader.PowerOutput = BaseOutput;
+        Expect.AreApproximatelyEqual(1100f, scene.PowerTrader.PowerOutput, "before unlinking");
+
+        scene.Facilities[0].Destroy();
+        Expect.AreApproximatelyEqual(1100f, scene.PowerTrader.PowerOutput, "within the cache");
+
+        using var _ = new MockGameTicks(
+            Find.TickManager.TicksGame + PowerTraderPatch.FactorCacheTicks + 1
+        );
+        Expect.AreApproximatelyEqual(BaseOutput, scene.PowerTrader.PowerOutput, "after the cache");
+    }
 
     [Test]
     public static void AnEmpStunnedGeneratorProducesNothing()
