@@ -111,17 +111,29 @@ public partial class CompEmbryoGestation
 [HarmonyPatch]
 internal sealed class Building_GrowthVat_GetGizmos_Patch
 {
-    internal static MethodInfo TargetMethod()
+    private static MethodInfo GetGizmos =>
+        AccessTools.Method(typeof(Building_GrowthVat), nameof(Building_GrowthVat.GetGizmos));
+
+    internal static MethodInfo TargetMethod() => AccessTools.EnumeratorMoveNext(GetGizmos);
+
+    // GetGizmos itself only creates the iterator and stores `this` in it with ldarg.0 + stfld.
+    internal static FieldInfo? IteratorThisField()
     {
-        var closures = AccessTools.FirstInner(
-            typeof(Building_GrowthVat),
-            t => t.Name.Contains("<GetGizmos>"
-#if !v1_5
-                    , StringComparison.Ordinal
-#endif
-                )
-        );
-        return AccessTools.Method(closures, nameof(IEnumerator.MoveNext));
+        var iteratorType = TargetMethod().DeclaringType;
+        var instructions = PatchProcessor.GetOriginalInstructions(GetGizmos);
+        for (var i = 1; i < instructions.Count; i++)
+        {
+            if (
+                instructions[i - 1].opcode == OpCodes.Ldarg_0
+                && instructions[i].opcode == OpCodes.Stfld
+                && instructions[i].operand is FieldInfo field
+                && field.DeclaringType == iteratorType
+            )
+            {
+                return field;
+            }
+        }
+        return null;
     }
 
     internal static IEnumerable<CodeInstruction> Transpiler(
@@ -129,30 +141,20 @@ internal sealed class Building_GrowthVat_GetGizmos_Patch
         ILGenerator generator
     )
     {
-        var codeMatcher = new CodeMatcher(instructions, generator);
-        _ = codeMatcher.SearchForward(i =>
-            i.opcode == OpCodes.Stfld
-            && i.operand is FieldInfo f
-            && f.Name.Contains("__this"
-#if !v1_5
-                , StringComparison.Ordinal
-#endif
-            )
-        );
-        if (!codeMatcher.IsValid)
+        var thisField = IteratorThisField();
+        if (thisField == null)
         {
             Log.Error(
-                "Could not patch Building_GrowthVat.GetGizmos, IL does not match expectations: access to __this field not found."
+                "Could not patch Building_GrowthVat.GetGizmos, IL does not match expectations: store of this into the iterator not found."
             );
-            return codeMatcher.Instructions();
+            return instructions;
         }
-        var instruction = codeMatcher.Instruction;
 
         return CompEmbryoGestation.EmbryoGestationTicksTranspiler(
             instructions,
             generator,
             $"{nameof(Building_GrowthVat)}.{nameof(Building_GrowthVat.GetGizmos)}",
-            [new(OpCodes.Ldarg_0), new(OpCodes.Ldfld, instruction.operand)]
+            [new(OpCodes.Ldarg_0), new(OpCodes.Ldfld, thisField)]
         );
     }
 }
@@ -160,18 +162,10 @@ internal sealed class Building_GrowthVat_GetGizmos_Patch
 [HarmonyPatch]
 internal sealed class HumanEmbryo_GetGizmos_Patch
 {
-    internal static MethodInfo TargetMethod()
-    {
-        var closures = AccessTools.FirstInner(
-            typeof(HumanEmbryo),
-            t => t.Name.Contains("<GetGizmos>"
-#if !v1_5
-                    , StringComparison.Ordinal
-#endif
-                )
+    internal static MethodInfo TargetMethod() =>
+        AccessTools.EnumeratorMoveNext(
+            AccessTools.Method(typeof(HumanEmbryo), nameof(HumanEmbryo.GetGizmos))
         );
-        return AccessTools.Method(closures, nameof(IEnumerator.MoveNext));
-    }
 
     internal static IEnumerable<CodeInstruction> Transpiler(
         IEnumerable<CodeInstruction> instructions,
@@ -180,36 +174,27 @@ internal sealed class HumanEmbryo_GetGizmos_Patch
     {
         var codeMatcher = new CodeMatcher(instructions, generator);
         _ = codeMatcher.SearchForward(i =>
-            i.opcode == OpCodes.Stfld && i.operand is FieldInfo f && f.Name == "bestVat"
+            i.Calls(
+                AccessTools.Method(typeof(HumanEmbryo), nameof(HumanEmbryo.BestAvailableGrowthVat))
+            )
         );
         if (!codeMatcher.IsValid)
         {
             Log.Error(
-                "Could not patch HumanEmbryo.GetGizmos, IL does not match expectations: access to bestVat field not found."
+                "Could not patch HumanEmbryo.GetGizmos, IL does not match expectations: call to BestAvailableGrowthVat not found."
             );
             return codeMatcher.Instructions();
         }
-        var bestVatInstruction = codeMatcher.Instruction;
 
-        _ = codeMatcher.Advance(-3);
-        if (codeMatcher.Instruction.opcode != OpCodes.Ldloc_S)
-        {
-            Log.Error(
-                "Could not patch HumanEmbryo.GetGizmos, IL does not match expectations: expected Ldloc_S before Stfld bestVat; was "
-                    + codeMatcher.Instruction
-            );
-            return codeMatcher.Instructions();
-        }
-        var bestVatLocalInstruction = codeMatcher.Instruction;
+        // Keep a copy of the vat BestAvailableGrowthVat returns, for the gestation ticks lookup.
+        var bestVat = generator.DeclareLocal(typeof(Building_GrowthVat));
+        _ = codeMatcher.Advance(1).Insert([new(OpCodes.Dup), new(OpCodes.Stloc, bestVat)]);
 
         return CompEmbryoGestation.EmbryoGestationTicksTranspiler(
-            instructions,
+            codeMatcher.Instructions(),
             generator,
             $"{nameof(HumanEmbryo)}.{nameof(HumanEmbryo.GetGizmos)}",
-            [
-                new(OpCodes.Ldloc_S, bestVatLocalInstruction.operand),
-                new(OpCodes.Ldfld, bestVatInstruction.operand),
-            ]
+            [new(OpCodes.Ldloc, bestVat)]
         );
     }
 }

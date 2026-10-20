@@ -170,6 +170,26 @@ internal sealed class TranspilerSmokeTests
             Building_GrowthVat_GetGizmos_Patch.Transpiler
         );
 
+    // MoveNext's ldarg.0 is the iterator, so the vat must come from a field the iterator declares.
+    [Test]
+    public static void GrowthVatGetGizmosLoadsTheVatFromTheIterator()
+    {
+        var original = Building_GrowthVat_GetGizmos_Patch.TargetMethod();
+        var instructions = Transpile(original, Building_GrowthVat_GetGizmos_Patch.Transpiler);
+        var call = instructions.FindIndex(i => i.Calls(GetEmbryoGestationTicks));
+        Expect.IsTrue(call >= 2, "call to GetEmbryoGestationTicks after the vat load");
+        if (call < 2)
+        {
+            return;
+        }
+
+        var field = instructions[call - 1].operand as FieldInfo;
+        Expect.AreEqual(OpCodes.Ldarg_0, instructions[call - 2].opcode);
+        Expect.AreEqual(OpCodes.Ldfld, instructions[call - 1].opcode);
+        Expect.AreEqual(original.DeclaringType, field?.DeclaringType);
+        Expect.AreEqual(typeof(Building_GrowthVat), field?.FieldType);
+    }
+
     [Test]
     public static void HumanEmbryoGetGizmosIsPatched() =>
         ExpectGestationTicksPatched(
