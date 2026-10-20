@@ -55,8 +55,9 @@ public partial class CompEmbryoGestation
         ILGenerator generator
     ) => EmbryoGestationTicksTranspiler(instructions, generator);
 
-    private static int GetEmbryoGestationTicks(Building_GrowthVat vat) =>
-        vat.GetComp<CompEmbryoGestation>()?.PropsEmbryoGestation.embryoGestationTicks
+    // vat is null when HumanEmbryo.GetGizmos finds no available growth vat.
+    private static int GetEmbryoGestationTicks(Building_GrowthVat? vat) =>
+        vat?.GetComp<CompEmbryoGestation>()?.PropsEmbryoGestation.embryoGestationTicks
         ?? Building_GrowthVat.EmbryoGestationTicks;
 }
 

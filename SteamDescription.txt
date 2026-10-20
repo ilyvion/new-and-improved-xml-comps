@@ -6,11 +6,9 @@ This is a mod that will mostly be a collection of new comps (as well as improvem
 [\*][url=https://github.com/ilyvion/new-and-improved-xml-comps/wiki/CompProperties_ImprovedPower]CompProperties_ImprovedPower[/url] -- a version of the vanilla CompProperties_Power that lets you hide the wires drawn between a building and the conduits.
 [\*][url=https://github.com/ilyvion/new-and-improved-xml-comps/wiki/GravshipCooldownExtension]GravshipCooldownExtension[/url] -- a modExtensions entry that lets you replace a GravEngine's cooldown graphic, which is hardcoded by vanilla RW.
 [\*][url=https://github.com/ilyvion/new-and-improved-xml-comps/wiki/GravshipOrbExtension]GravshipOrbExtension[/url] -- a modExtensions entry that lets you replace a GravEngine's orb graphic, which is hardcoded by vanilla RW.
+[\*]CompProperties_EmbryoGestation -- a comp for growth vats that changes how long an embryo takes to gestate.
+[\*]NewAndImprovedXmlComps_PowerGenFactor -- a stat that scales a building's power output, e.g. through a facility's statOffsets.
 [/list]
-
-[h1]Version support[/h1]
-
-This mod supports RimWorld 1.5 and 1.6
 
 [h1]Source code[/h1]
 

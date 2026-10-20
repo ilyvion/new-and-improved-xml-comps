@@ -1,4 +1,4 @@
-[![RimWorld 1.5](https://img.shields.io/badge/RimWorld-1.5-brightgreen.svg)](http://rimworldgame.com/) [![Build](https://github.com/ilyvion/new-and-improved-xml-comps/actions/workflows/ci.yml/badge.svg)](https://github.com/ilyvion/new-and-improved-xml-comps/actions/workflows/ci.yml)
+[![RimWorld 1.5](https://img.shields.io/badge/RimWorld-1.5-brightgreen.svg)](http://rimworldgame.com/) [![RimWorld 1.6](https://img.shields.io/badge/RimWorld-1.6-brightgreen.svg)](http://rimworldgame.com/) [![Build](https://github.com/ilyvion/new-and-improved-xml-comps/actions/workflows/ci.yml/badge.svg)](https://github.com/ilyvion/new-and-improved-xml-comps/actions/workflows/ci.yml)
 
 This is a mod that will mostly be a collection of new comps (as well as improvements to vanilla comps) that will let people do things with XML only that would normally require C# coding. If you're an aspiring mod author in need of a feature that vanilla comps do not offer, drop me a suggestion and I'll let you know whether or not I can add it to the mod for you!
 
