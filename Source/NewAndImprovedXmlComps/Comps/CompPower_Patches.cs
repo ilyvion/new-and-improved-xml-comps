@@ -125,13 +125,11 @@ public class CompImprovedPower_CompPrintForPowerGrid
         var ifLabels = codeMatcher.Labels;
         codeMatcher.Labels = [];
 
-        codeMatcher.Insert(
-            [
-                new(OpCodes.Ldarg_0) { labels = ifLabels },
-                new(OpCodes.Call, shouldMethodOperand),
-                new(OpCodes.Brfalse_S, skipLabel),
-            ]
-        );
+        codeMatcher.Insert([
+            new(OpCodes.Ldarg_0) { labels = ifLabels },
+            new(OpCodes.Call, shouldMethodOperand),
+            new(OpCodes.Brfalse_S, skipLabel),
+        ]);
 
         return codeMatcher.Instructions();
     }

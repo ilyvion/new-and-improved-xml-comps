@@ -53,19 +53,17 @@ internal sealed class Building_GravEngine_DrawAt_Patch
 
         _ = codeMatcher
             .Advance(1)
-            .Insert(
-                [
-                    new(OpCodes.Ldarg_0),
-                    new(OpCodes.Ldloca_S, 0),
-                    new(
-                        OpCodes.Call,
-                        AccessTools.Method(
-                            typeof(Building_GravEngine_DrawAt_Patch),
-                            nameof(UpdateVector3)
-                        )
-                    ),
-                ]
-            );
+            .Insert([
+                new(OpCodes.Ldarg_0),
+                new(OpCodes.Ldloca_S, 0),
+                new(
+                    OpCodes.Call,
+                    AccessTools.Method(
+                        typeof(Building_GravEngine_DrawAt_Patch),
+                        nameof(UpdateVector3)
+                    )
+                ),
+            ]);
 
         _ = codeMatcher.SearchForward(i =>
             i.Calls(
@@ -82,18 +80,16 @@ internal sealed class Building_GravEngine_DrawAt_Patch
 
         _ = codeMatcher
             .Advance(1)
-            .Insert(
-                [
-                    new(OpCodes.Ldarg_0),
-                    new(
-                        OpCodes.Call,
-                        AccessTools.Method(
-                            typeof(Building_GravEngine_DrawAt_Patch),
-                            nameof(GetOrbGraphic)
-                        )
-                    ),
-                ]
-            );
+            .Insert([
+                new(OpCodes.Ldarg_0),
+                new(
+                    OpCodes.Call,
+                    AccessTools.Method(
+                        typeof(Building_GravEngine_DrawAt_Patch),
+                        nameof(GetOrbGraphic)
+                    )
+                ),
+            ]);
 
         return codeMatcher.Instructions();
     }

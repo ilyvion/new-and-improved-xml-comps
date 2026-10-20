@@ -29,18 +29,13 @@ public partial class CompEmbryoGestation
 #pragma warning disable IDE0047
         _ = codeMatcher
             .RemoveInstruction()
-            .Insert(
-                [
-                    .. (getBuildingInstructions ?? [new(OpCodes.Ldarg_0)]),
-                    new(
-                        OpCodes.Call,
-                        AccessTools.Method(
-                            typeof(CompEmbryoGestation),
-                            nameof(GetEmbryoGestationTicks)
-                        )
-                    ),
-                ]
-            );
+            .Insert([
+                .. (getBuildingInstructions ?? [new(OpCodes.Ldarg_0)]),
+                new(
+                    OpCodes.Call,
+                    AccessTools.Method(typeof(CompEmbryoGestation), nameof(GetEmbryoGestationTicks))
+                ),
+            ]);
 #pragma warning restore IDE0047
 
         return codeMatcher.Instructions();
@@ -204,20 +199,18 @@ internal sealed class HumanEmbryo_BestAvailableGrowthVat_Patch
         var labels = codeMatcher.Labels.ToList();
         codeMatcher.Labels.Clear();
 
-        _ = codeMatcher.Insert(
-            [
-                new(
-                    OpCodes.Call,
-                    AccessTools.Method(
-                        typeof(HumanEmbryo_BestAvailableGrowthVat_Patch),
-                        nameof(SortByEmbryoGestationTicks)
-                    )
+        _ = codeMatcher.Insert([
+            new(
+                OpCodes.Call,
+                AccessTools.Method(
+                    typeof(HumanEmbryo_BestAvailableGrowthVat_Patch),
+                    nameof(SortByEmbryoGestationTicks)
                 )
-                {
-                    labels = labels,
-                },
-            ]
-        );
+            )
+            {
+                labels = labels,
+            },
+        ]);
 
         // Since we're adding another sort criterion, we need to change the SortBy call to use the correct overload.
         // The original code uses a generic SortBy method with 3 type parameters, so we need to change it to use the 4-parameter overload.

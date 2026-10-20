@@ -52,14 +52,12 @@ public partial class CompImprovedSpawner
             _ = codeMatcher.Advance(-2);
 
             // Inject ourselves
-            _ = codeMatcher.Insert(
-                [
-                    new(OpCodes.Callvirt, CompImprovedSpawner_IsActive),
-                    new(OpCodes.Brtrue_S, label),
-                    new(OpCodes.Ret),
-                    new(OpCodes.Ldarg_0),
-                ]
-            );
+            _ = codeMatcher.Insert([
+                new(OpCodes.Callvirt, CompImprovedSpawner_IsActive),
+                new(OpCodes.Brtrue_S, label),
+                new(OpCodes.Ret),
+                new(OpCodes.Ldarg_0),
+            ]);
 
             return codeMatcher.Instructions();
         }
@@ -113,14 +111,12 @@ public partial class CompImprovedSpawner
             _ = codeMatcher.Advance(-2);
 
             // Inject ourselves
-            _ = codeMatcher.Insert(
-                [
-                    new(OpCodes.Callvirt, CompImprovedSpawner_IsActive),
-                    new(OpCodes.Brfalse_S, falseLabel),
-                    new(OpCodes.Br_S, trueLabel),
-                    new(OpCodes.Ldarg_0),
-                ]
-            );
+            _ = codeMatcher.Insert([
+                new(OpCodes.Callvirt, CompImprovedSpawner_IsActive),
+                new(OpCodes.Brfalse_S, falseLabel),
+                new(OpCodes.Br_S, trueLabel),
+                new(OpCodes.Ldarg_0),
+            ]);
 
             return codeMatcher.Instructions();
         }
